@@ -6,16 +6,16 @@ app_ui <- function() {
     golem_add_external_resources(),
     #golem::js(),
     #golem::favicon(),
-    # List the first level UI elements here 
+    # List the first level UI elements here
     fluidPage(
       h1("InterLabStudy")
     )
   )
-  
+
 
 # Sidebar -------------------------------------------------------------------------------------
 
-  
+
   sidebar <- shinydashboard::dashboardSidebar(
     width = 200,
     hr(),
@@ -28,19 +28,21 @@ app_ui <- function() {
 
 # Body ----------------------------------------------------------------------------------------
 
-    
+
   body <- shinydashboard::dashboardBody(
-    
+
+    shinybusy::add_busy_bar(color = "#FF0000"),
+
     shinydashboard::tabItems(
     mod_inputData_ui("inputData_ui_1"),
     mod_Report_ui("Report_ui_1")
     )
   )
- 
+
 
 # Page ----------------------------------------------------------------------------------------
 
-   
+
   shinydashboard::dashboardPage(
     shinydashboard::dashboardHeader(title = "InterLabStudy",
                     titleWidth = 200),
@@ -51,11 +53,11 @@ app_ui <- function() {
 }
 
 golem_add_external_resources <- function(){
-  
+
   addResourcePath(
     'www', system.file('app/www', package = 'InterLabStudy')
   )
- 
+
   tagList(
     # Add here all the external resources
     # If you have a custom.css in the inst/app/www

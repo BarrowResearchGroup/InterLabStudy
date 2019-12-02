@@ -16,6 +16,7 @@ Imports:
     glue,
     htmltools,
     shinydashboard,
+    shinybusy,
     ggplot2,
     purrr,
     magrittr,
@@ -25,14 +26,11 @@ Imports:
     tidyr,
     readr,
     stringr,
-    promises,
     viridis,
-    future,
     tibble,
     dplyr,
     ragg,
-    plotly,
-    pkgload
+    plotly
 RoxygenNote: 7.0.1
 URL: https://github.com/BarrowResearchGroup/InterLabStudy
 BugReports: https://github.com/BarrowResearchGroup/InterLabStudy/issues
