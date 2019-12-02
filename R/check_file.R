@@ -1,5 +1,6 @@
 #' Check file type and structure is correct
-#' @return NULL or a character vector
+#' @return NULL or a character vector#' 
+#' @param data file to check for problems
 #' @export
 #' @author Hugh Jones \email{hj.hujones.hugh@googlemail.com}
 #' @importFrom readr problems
