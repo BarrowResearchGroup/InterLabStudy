@@ -3,6 +3,8 @@
 export(check_file)
 export(count_atoms)
 export(expand_palette)
+export(mod_Help_server)
+export(mod_Help_ui)
 export(mod_Report_server)
 export(mod_Report_ui)
 export(mod_inputData_server)

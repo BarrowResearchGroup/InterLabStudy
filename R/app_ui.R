@@ -21,7 +21,8 @@ app_ui <- function() {
     hr(),
     shinydashboard::sidebarMenu(id="tabs",
                 shinydashboard::menuItem(text = "Import", tabName = "inputData", icon = icon("upload")),
-                shinydashboard::menuItem(text = "Report", tabName = "report", icon = icon("bar-chart"))
+                shinydashboard::menuItem(text = "Report", tabName = "report", icon = icon("bar-chart")),
+                shinydashboard::menuItem(text = "Help", tabName = "help", icon = icon("info"))
     )
   )
 
@@ -35,7 +36,8 @@ app_ui <- function() {
 
     shinydashboard::tabItems(
     mod_inputData_ui("inputData_ui_1"),
-    mod_Report_ui("Report_ui_1")
+    mod_Report_ui("Report_ui_1"),
+    mod_Help_ui("Help_ui_1")
     )
   )
 
