@@ -50,8 +50,8 @@ mod_Help_ui <- function(id){
                             HTML("<h4><b>Metrics</b></h4>"),
                             HTML("<p>This section sample metrics such as <b>H/C</b>, <b>O/C</b>, <b>AI<sub>mod</sub></b> and <b>MW</b> 
                                  are plotted as boxplots. </br>
-                                 The metrics for the currently uploaded data is plotted as an red <span style='color:red;'>X</span>  </br>
-                                 metrics can be accessed by <code>InterLabStudy::sample_metrics</code> </p>"),
+                                 The metrics for the currently uploaded data is plotted as an red <span style='color:red;'>X</span>.  </br>
+                                 Metrics can be accessed by <code>InterLabStudy::sample_metrics</code> </p>"),
                             HTML("<h4><b>Data tables</b></h4>"),
                             HTML("<p>This section displays the underlying data tables<p>")
                           ) 

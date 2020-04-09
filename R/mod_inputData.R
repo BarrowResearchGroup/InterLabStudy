@@ -87,9 +87,12 @@ mod_inputData_server <- function(input, output, session, common_data){
   masslist<-reactive({
     if(is.null(input$masslists))return(NULL)
     
-    data<-readr::read_csv(input$masslists$datapath,col_types = "dic") %>%
+    data<-readr::read_csv(input$masslists$datapath,col_types = "ddc") %>%
       magrittr::set_colnames(c("mz","int","formula")) %>%
-      dplyr::filter({if(input$remove_iso) !stringr::str_detect(formula,'\\s[:digit:]{1,2}[:alpha:]{1,2}[:digit:]{1,2}') else TRUE})
+      dplyr::filter(int > 0) %>%
+      dplyr::arrange(dplyr::desc(int)) %>%
+      dplyr::distinct(formula, .keep_all = TRUE) %>% #Remove any duplicate formulae
+      dplyr::filter({if(input$remove_iso) !stringr::str_detect(formula,'\\s[:digit:]{1,2}[:alpha:]{1,2}[:digit:]{1,2}') else TRUE}) 
     #validate main check if any problems during read
     shiny::validate(check_file(data))
     return(data)

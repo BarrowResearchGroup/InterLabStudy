@@ -35,6 +35,7 @@ mod_Report_ui <- function(id){
                                  tabPanel(
                                    h5("Matched data"),
                                    splitLayout(
+                                     cellWidths = c("30%","70%"),
                                      box(width = NULL,htmlOutput(ns("matching_stats")),
                                          collapsible = TRUE, title = "Matching Stats", status = "primary", solidHeader = TRUE),
                                      box(width = NULL,div(style = 'overflow-x: scroll', DT::dataTableOutput(ns("matching_table"))),
@@ -190,7 +191,7 @@ mod_Report_server <- function(input, output, session, common_data, detected_data
       ) %>%
       dplyr::mutate(H_C = H/C,
              O_C = O/C,
-             dbe = C - H/2 + N/2 + 1 + dplyr::if_else(inputData()$ion_mode == "neg",-0.5,0),
+             dbe = C - H/2 + N/2 + 1 ,
              AI_mod = (1 + C - (0.5 * O) - S - 0.5 *(N + H))/(C - (0.5 * O) - N - S))
     })
   
@@ -385,15 +386,22 @@ matched_data <- reactive({
 # Sample Metrics ----------------------------------------------------------
 
 current_metrics <- reactive({
-  req(input_data())
+  req(input_data(),selected_common_data())
   
-  input_data() %>%
+  common_formula<-selected_common_data()$formula
+  
+  output<-input_data() %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(formula %in% common_formula) %>%
     dplyr::summarise(
-      HC_metric = sum(H_C * int)/sum(int),
-      AI_mod_metric = sum(AI_mod * int)/sum(int),
-      MW_metric = sum(mz * int)/sum(int),
-      OC_metric = sum(O_C * int)/sum(int)
-    )
+      HC_metric = sum(H_C * int, na.rm = TRUE)/sum(int,na.rm = TRUE),
+      AI_mod_metric = sum(AI_mod * int,na.rm = TRUE)/sum(int,na.rm = TRUE),
+      MW_metric = sum(mz * int, na.rm = TRUE)/sum(int, na.rm = TRUE),
+      OC_metric = sum(O_C * int, na.rm = TRUE)/sum(int, na.rm = TRUE)
+    ) 
+ 
+  return(output)
+  
 })  
   
 
@@ -402,15 +410,15 @@ current_metrics <- reactive({
    req(inputData(), current_metrics())
    data<- sample_metrics %>%
      purrr::pluck(paste0("HC",inputData()$ion_mode)) %>% 
-     tidyr::gather("Sample","Value",-c(Blank)) %>%
-     dplyr::add_row(.,Blank = "X", Sample = inputData()$sample_type, Value = current_metrics()$HC_metric[[1]]) 
+     tidyr::gather("Sample","Value",-c(Instrument)) %>%
+     dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$HC_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample)) +
      stat_boxplot(geom = "errorbar", width = 0.2)+
      geom_boxplot(aes(fill = Sample),alpha = 0.5,colour = "black")+
-     {if(!input$add_jitter) geom_text(aes(label = Blank, colour = Blank))}+
-     {if(input$add_jitter) geom_text(aes(label = Blank, colour = Blank), position = position_jitter(seed = 2000))}+
-     scale_colour_manual(values = expand_palette(data$Blank, "black", c("X" = "red")))+
+     {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
+     {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
+     scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
      labs(y = "H/C metric")+
      theme(legend.title = element_blank(),
            legend.position = "none")
@@ -439,15 +447,15 @@ current_metrics <- reactive({
    req(inputData(), current_metrics())
    data <- sample_metrics %>%
      purrr::pluck(paste0("OC",inputData()$ion_mode)) %>% 
-     tidyr::gather("Sample","Value",-c(Blank)) %>%
-     dplyr::add_row(.,Blank = "X", Sample = inputData()$sample_type, Value = current_metrics()$OC_metric[[1]]) 
+     tidyr::gather("Sample","Value",-c(Instrument)) %>%
+     dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$OC_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample, fill = Sample)) +
      stat_boxplot(geom = "errorbar", width = 0.2)+
      geom_boxplot(alpha = 0.5)+
-     {if(!input$add_jitter) geom_text(aes(label = Blank, colour = Blank))}+
-     {if(input$add_jitter) geom_text(aes(label = Blank, colour = Blank), position = position_jitter(seed = 2000))}+
-     scale_colour_manual(values = expand_palette(data$Blank, "black", c("X" = "red")))+
+     {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
+     {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
+     scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
      labs(y = "O/C metric")+
      theme(legend.title = element_blank(),
            legend.position = "none")
@@ -476,15 +484,15 @@ current_metrics <- reactive({
    req(inputData(), current_metrics())
    data <- sample_metrics %>%
      purrr::pluck(paste0("AI",inputData()$ion_mode)) %>% 
-     tidyr::gather("Sample","Value",-c(Blank)) %>%
-     dplyr::add_row(.,Blank = "X", Sample = inputData()$sample_type, Value = current_metrics()$AI_mod_metric[[1]]) 
+     tidyr::gather("Sample","Value",-c(Instrument)) %>%
+     dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$AI_mod_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample, fill = Sample)) +
      stat_boxplot(geom = "errorbar", width = 0.2)+
      geom_boxplot(alpha = 0.5)+
-     {if(!input$add_jitter) geom_text(aes(label = Blank, colour = Blank))}+
-     {if(input$add_jitter) geom_text(aes(label = Blank, colour = Blank), position = position_jitter(seed = 2000))}+
-     scale_colour_manual(values = expand_palette(data$Blank, "black", c("X" = "red")))+
+     {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
+     {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
+     scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
      labs(y = "AImod metric")+
      theme(legend.title = element_blank(),
            legend.position = "none")
@@ -513,15 +521,15 @@ current_metrics <- reactive({
    req(inputData(), current_metrics())
    data <- sample_metrics %>%
      purrr::pluck(paste0("MW",inputData()$ion_mode)) %>% 
-     tidyr::gather("Sample","Value",-c(Blank)) %>%
-     dplyr::add_row(.,Blank = "X", Sample = inputData()$sample_type, Value = current_metrics()$MW_metric[[1]]) 
+     tidyr::gather("Sample","Value",-c(Instrument)) %>%
+     dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$MW_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample, fill = Sample)) +
      stat_boxplot(geom = "errorbar", width = 0.2)+
      geom_boxplot(alpha = 0.5)+
-     {if(!input$add_jitter) geom_text(aes(label = Blank, colour = Blank))}+
-     {if(input$add_jitter) geom_text(aes(label = Blank, colour = Blank), position = position_jitter(seed = 2000))}+
-     scale_colour_manual(values = expand_palette(data$Blank, "black", c("X" = "red")))+
+     {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
+     {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
+     scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
      labs(y = "MW metric")+
      theme(legend.title = element_blank(),
             legend.position = "none")
