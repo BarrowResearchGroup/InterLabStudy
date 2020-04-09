@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
   
 The goal of InterLabStudy is to compare data from various laboratories to a standard molecular assignment.
 
+## Live version
+
+A live verison is available here: https://warwick.ac.uk/go/interlabstudy
+
 ## Installation
 
 You can install the latest version of InterLabStudy package from Github with:

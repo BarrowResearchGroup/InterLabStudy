@@ -8,6 +8,11 @@
 The goal of InterLabStudy is to compare data from various laboratories
 to a standard molecular assignment.
 
+## Live version
+
+A live verison is available here:
+<https://warwick.ac.uk/go/interlabstudy>
+
 ## Installation
 
 You can install the latest version of InterLabStudy package from Github
@@ -15,7 +20,7 @@ with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("BarrowResearchGroup/InterLabStudy")
+remotes::install_github("R3myG/InterLabStudy")
 ```
 
 ## Example
