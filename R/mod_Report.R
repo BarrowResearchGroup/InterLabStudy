@@ -414,8 +414,8 @@ current_metrics <- reactive({
      dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$HC_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample)) +
-     stat_boxplot(geom = "errorbar", width = 0.2)+
-     geom_boxplot(aes(fill = Sample),alpha = 0.5,colour = "black")+
+     stat_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),geom = "errorbar", width = 0.2)+
+     geom_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),aes(fill = Sample),alpha = 0.5,colour = "black")+
      {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
      {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
      scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
@@ -451,8 +451,8 @@ current_metrics <- reactive({
      dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$OC_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample, fill = Sample)) +
-     stat_boxplot(geom = "errorbar", width = 0.2)+
-     geom_boxplot(alpha = 0.5)+
+     stat_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),geom = "errorbar", width = 0.2)+
+     geom_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),alpha = 0.5)+
      {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
      {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
      scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
@@ -488,8 +488,8 @@ current_metrics <- reactive({
      dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$AI_mod_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample, fill = Sample)) +
-     stat_boxplot(geom = "errorbar", width = 0.2)+
-     geom_boxplot(alpha = 0.5)+
+     stat_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),geom = "errorbar", width = 0.2)+
+     geom_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),alpha = 0.5)+
      {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
      {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
      scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
@@ -525,8 +525,8 @@ current_metrics <- reactive({
      dplyr::add_row(.,Instrument = "X", Sample = inputData()$sample_type, Value = current_metrics()$MW_metric[[1]]) 
    data %>%
      ggplot(aes(Sample,Value, group = Sample, fill = Sample)) +
-     stat_boxplot(geom = "errorbar", width = 0.2)+
-     geom_boxplot(alpha = 0.5)+
+     stat_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),geom = "errorbar", width = 0.2)+
+     geom_boxplot(data = ~dplyr::filter(.x, Instrument != "X"),alpha = 0.5)+
      {if(!input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument))}+
      {if(input$add_jitter) geom_text(aes(label = Instrument, colour = Instrument), position = position_jitter(seed = 2000))}+
      scale_colour_manual(values = expand_palette(data$Instrument, "black", c("X" = "red")))+
