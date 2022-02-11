@@ -14,6 +14,9 @@ knitr::opts_chunk$set(
 ```
 # InterLabStudy
   [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+   <!-- badges: start -->
+  [![R-CMD-check](https://github.com/BarrowResearchGroup/InterLabStudy/workflows/R-CMD-check/badge.svg)](https://github.com/BarrowResearchGroup/InterLabStudy/actions)
+  <!-- badges: end -->
   
 The goal of InterLabStudy is to compare data from various laboratories to a standard molecular assignment.
 
