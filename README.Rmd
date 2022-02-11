@@ -13,8 +13,8 @@ knitr::opts_chunk$set(
 )
 ```
 # InterLabStudy
-  [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
    <!-- badges: start -->
+  [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
   [![R-CMD-check](https://github.com/BarrowResearchGroup/InterLabStudy/workflows/R-CMD-check/badge.svg)](https://github.com/BarrowResearchGroup/InterLabStudy/actions)
   <!-- badges: end -->
   
@@ -30,7 +30,7 @@ You can install the latest version of InterLabStudy package from Github with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("R3myG/InterLabStudy")
+remotes::install_github("BarrowResearchGroup/InterLabStudy")
 ```
 
 ## Example

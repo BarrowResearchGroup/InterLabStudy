@@ -3,7 +3,10 @@
 
 # InterLabStudy
 
+<!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R-CMD-check](https://github.com/BarrowResearchGroup/InterLabStudy/workflows/R-CMD-check/badge.svg)](https://github.com/BarrowResearchGroup/InterLabStudy/actions)
+<!-- badges: end -->
 
 The goal of InterLabStudy is to compare data from various laboratories
 to a standard molecular assignment.
