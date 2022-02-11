@@ -20,7 +20,7 @@ with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("R3myG/InterLabStudy")
+remotes::install_github("BarrowResearchGroup/InterLabStudy")
 ```
 
 ## Example
