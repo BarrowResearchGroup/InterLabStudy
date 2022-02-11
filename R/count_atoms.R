@@ -31,11 +31,11 @@ count_atoms<-function(formula,element){
   if(any(stringr::str_detect(element, "^[:alpha:]{1,2}$", negate = TRUE))) {
     stop("element is not valid", call. = FALSE)
   }
-  
+ 
   formula %>% 
     stringr::str_extract_all(.,paste0('(?<=',element,')[:digit:]+')) %>%
     purrr::map(as.integer) %>%
     purrr::map(sum) %>%
-    tidyr::replace_na(0) %>%
-    unlist() 
+    unlist() %>%
+    tidyr::replace_na(0) 
 }

@@ -1,6 +1,6 @@
 Package: InterLabStudy
 Title: Compare datasets
-Version: 0.0.1.4
+Version: 0.0.1.5
 Authors@R: c(person('Remy', 'Gavard', email = 'r.gavard@gmail.com', role = c('aut')),
           person('Hugh', 'Jones', email = 'hj.hujones.hugh@googlemail.com', role = c('cre', 'aut')))
 Description: Package to compare datasets for an interlab study. 
@@ -20,18 +20,15 @@ Imports:
     ggplot2,
     purrr,
     magrittr,
-    ggthemes,
     shinyjs,
     shinyWidgets,
     tidyr,
     readr,
     stringr,
-    viridis,
-    tibble,
     dplyr,
     ragg,
     plotly
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 URL: https://github.com/BarrowResearchGroup/InterLabStudy
 BugReports: https://github.com/BarrowResearchGroup/InterLabStudy/issues
 Suggests: 

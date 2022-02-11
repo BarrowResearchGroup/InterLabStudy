@@ -20,7 +20,7 @@
 #' @importFrom glue glue
 #' @importFrom plotly renderPlotly ggplotly
 #' @importFrom purrr pluck map2_df
-#' @importFrom tibble tibble
+#' @importFrom dplyr tibble
 #' @importFrom tidyr replace_na gather
 #' @importFrom dplyr if_else
 
@@ -343,7 +343,7 @@ matched_data <- reactive({
 
   matching_table <- reactive({
     req(matched_data())
-    tibble::tibble(
+    dplyr::tibble(
       dataset = c("Common","Detected","Sample Unique"),
       n = c(
         {matched_data() %>% dplyr::filter(status == "common matched") %>% nrow()},
